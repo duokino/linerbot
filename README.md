@@ -15,6 +15,10 @@ Kesediaan terminal bagi sensor juga membolehkan LinerBot sama ada digunakan untu
 
 Kepelbagaian ini semua adalah bergantung pada kreativiti programming yang dibuat yang sememangnya sesuai digunakan untuk tujuan pembelajaran mobile robot atau autonomous robot.
 
+Buzzer menggunakan D8
+Push Button menggunakan D2 (INPUT_PULLUP)
+Potentiometer/Trimmer menggunakan A0
+
 Bahan untuk membina LinerBot :
   - Chassis (3D Printed main_body.stl)
   - M3 x 6mm self tapping screw
