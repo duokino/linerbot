@@ -50,3 +50,6 @@ Untuk fungsi robot sumo atau robot pengelak objek dicadangkan menggunakan :
   atau
   - HC-SR04 Ultrasonic Sensor
     (https://my.cytron.io/p-5v-hc-sr04-ultrasonic-sensor?search=ultrasonic&description=1)
+
+Untuk fungsi RC Radio Frekuensi boleh menggunakan FlySky 3 Channels RC Radio Transmitter and Receiver dan yang seangkatan dengannya
+(https://my.cytron.io/p-flysky-3-channels-rc-radio-transmitter-and-receiver)
