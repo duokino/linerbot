@@ -5,6 +5,8 @@ Dalam proses membina LinerBot telah berlaku beberapa proses seperti ujian pendaw
 
 Kesemua proses ini memerlukan komponen tambahan bagi memudahkan proses tersebut. Dari situ terhasil Papan Induk Kawalan LinerBot bagi memudahkan proses tersebut seperti keperluan kepada pengguna Push Button, Potentiometer dan terminal port yang lain yang boleh menambahkan fungsi LinerBot.
 
+![Additional Input/Output](/images/131342407_10218762712320330_1406382797139912025_o.jpg)
+
 Papan Induk Kawalan LinerBot ini sedikit sebanyak membantu proses pembelajaran khasnya dalam pembinaan mobile robot daripada asas kepada fungsi tambahan kawalan jarak jauh dan seterusnya fungsi autonomous.
 
 Kawalan jarak jauh boleh menggunakan Bluetooth Module seperti HC-05 atau HC-06 menggunakan terminal Bluetooth yang tersedia pada Papan Induk Kawalan LinerBot.
