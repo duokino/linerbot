@@ -1,6 +1,8 @@
 # LinerBot
 Idea asal LinerBot adalah membina sebuah mobile robot mini yang mampu mengesan dan bergerak mengikut garisan.
 
+![LinerBot](/images/131260464_10218762713920370_39264181146027184_o.jpg)
+
 Dalam proses membina LinerBot telah berlaku beberapa proses seperti ujian pendawaian motor, kalibrasi penjajaran roda kanan dan kiri dan beberapa proses lain bagi memastikan LinerBot dapat bergerak secara optimum.
 
 Kesemua proses ini memerlukan komponen tambahan bagi memudahkan proses tersebut. Dari situ terhasil Papan Induk Kawalan LinerBot bagi memudahkan proses tersebut seperti keperluan kepada pengguna Push Button, Potentiometer dan terminal port yang lain yang boleh menambahkan fungsi LinerBot.
