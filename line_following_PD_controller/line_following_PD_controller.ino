@@ -17,12 +17,7 @@ float P=0, D=0, PD_value=0;
 float error=0, previous_error=0;
 
 //Pin declaration for TB6612FNG
-/*
-int RightEn = PWMB;
-int RightDir = 4;
-int LeftEn = PWMA;
-int LeftDir = 7;
-*/
+
 //Motor Right
 int PWMB = 10; //Speed control
 int BIN1 = 12; //Direction
