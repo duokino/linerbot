@@ -38,11 +38,11 @@ void setup() {
   pinMode (pinPD, INPUT);   //Pin Setup for potentiometer
   
   //Maker Line Auto-Calibrating Line Sensor Pin Setup
-  pinMode(sensor[0],INPUT);
-  pinMode(sensor[1],INPUT);
-  pinMode(sensor[2],INPUT);
-  pinMode(sensor[3],INPUT);
-  pinMode(sensor[4],INPUT);
+  pinMode(A1,INPUT);
+  pinMode(A2,INPUT);
+  pinMode(A3,INPUT);
+  pinMode(A4,INPUT);
+  pinMode(A5,INPUT);
 
   //Motor Driver Pin Setup
   pinMode(PWMB,OUTPUT);
