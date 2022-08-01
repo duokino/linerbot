@@ -8,11 +8,12 @@
 
 //Initialization
 int sensor[5] = {0, 0, 0, 0, 0};     //initialization for Maker Line
-int initial_motor_speed = 40;        //can change the initial speed that you prefer
-int maxSpeed = 80;                 //if the motor is too fast, decrease the max speed and vice versa
-float Kp = 0;       //will be change using potentiometer
-float Kd = 0;       //will be change using potettiometer
-float pinPD = A0;    //pin Analog 0 for the input of the potentiometer
+int initial_motor_speed = 60;        //can change the initial speed that you prefer
+int maxSpeed = 120;                 //if the motor is too fast, decrease the max speed and vice versa
+float Kp = 6;       //will be change using potentiometer
+float Kd = 12;       //will be change using potettiometer
+int slip = 4;     //will be change using potentiometer
+float VR = A0;    //pin Analog 0 for the input of the potentiometer
 float P=0, D=0, PD_value=0;
 float error=0, previous_error=0;
 
@@ -35,7 +36,7 @@ void motor_control(void);
 void setup() {
 
   Serial.begin(9600);       //Enable Serial Communications
-  pinMode (pinPD, INPUT);   //Pin Setup for potentiometer
+  pinMode (VR, INPUT);   //Pin Setup for potentiometer
   
   //Maker Line Auto-Calibrating Line Sensor Pin Setup
   pinMode(A1,INPUT);
@@ -76,25 +77,25 @@ void read_sensor_values()
   sensor[3] = digitalRead(A4);
   sensor[4] = digitalRead(A5); 
   
-  if((sensor[0]==0) && (sensor[1]==0) && (sensor[2]==1) && (sensor[3]==0) && (sensor[4]==0))
+  if((sensor[0]==0) && (sensor[1]==0) && (sensor[2]==1) && (sensor[3]==0) && (sensor[4]==0))          //center
   error = 0;
-  else if((sensor[0]==0) && (sensor[1]==0) && (sensor[2]==1) && (sensor[3]==1) && (sensor[4]==0))
+  else if((sensor[0]==0) && (sensor[1]==0) && (sensor[2]==1) && (sensor[3]==1) && (sensor[4]==0))     //out left
   error = 1;
-  else if((sensor[0]==0) && (sensor[1]==0) && (sensor[2]==0) && (sensor[3]==1) && (sensor[4]==0))
+  else if((sensor[0]==0) && (sensor[1]==0) && (sensor[2]==0) && (sensor[3]==1) && (sensor[4]==0))     //out left
   error = 2;
-  else if((sensor[0]==0) && (sensor[1]==0) && (sensor[2]==0) && (sensor[3]==1) && (sensor[4]==1))
+  else if((sensor[0]==0) && (sensor[1]==0) && (sensor[2]==0) && (sensor[3]==1) && (sensor[4]==1))     //out left
   error = 4;
-  else if((sensor[0]==0) && (sensor[1]==0) && (sensor[2]==0) && (sensor[3]==0) && (sensor[4]==1))
+  else if((sensor[0]==0) && (sensor[1]==0) && (sensor[2]==0) && (sensor[3]==0) && (sensor[4]==1))     //out left
   error = 3;
-  else if((sensor[0]==0) && (sensor[1]==1) && (sensor[2]==1) && (sensor[3]==0) && (sensor[4]==0))
+  else if((sensor[0]==0) && (sensor[1]==1) && (sensor[2]==1) && (sensor[3]==0) && (sensor[4]==0))     //out right
   error = -1;
-  else if((sensor[0]==0) && (sensor[1]==1) && (sensor[2]==0) && (sensor[3]==0) && (sensor[4]==0))
+  else if((sensor[0]==0) && (sensor[1]==1) && (sensor[2]==0) && (sensor[3]==0) && (sensor[4]==0))     //out right
   error = -2;
-  else if((sensor[0]==1) && (sensor[1]==1) && (sensor[2]==0) && (sensor[3]==0) && (sensor[4]==0))
+  else if((sensor[0]==1) && (sensor[1]==1) && (sensor[2]==0) && (sensor[3]==0) && (sensor[4]==0))     //out right
   error = -4;
-  else if((sensor[0]==1) && (sensor[1]==0) && (sensor[2]==0) && (sensor[3]==0) && (sensor[4]==0))
+  else if((sensor[0]==1) && (sensor[1]==0) && (sensor[2]==0) && (sensor[3]==0) && (sensor[4]==0))     //out right
   error = -3;
-  else if((sensor[0]==0) && (sensor[1]==0) && (sensor[2]==0) && (sensor[3]==0) && (sensor[4]==0))
+  else if((sensor[0]==0) && (sensor[1]==0) && (sensor[2]==0) && (sensor[3]==0) && (sensor[4]==0))     //out of range
     if(error==5) error = 5;
     else error = -5;
 }
@@ -104,11 +105,11 @@ void calculate_pid()
     P = error;
     D = error - previous_error;
     
-    //Kp = analogRead(pinPD);
+    //Kp = analogRead(VR);
     //Kp = Kp/100;
     //Serial.println(Kp);
     
-    //Kd = analogRead(pinPD);
+    //Kd = analogRead(VR);
     //Kd = Kd/100;
     //Serial.println(Kd);
     
@@ -126,8 +127,12 @@ void motor_control()
     // The motor speed should not exceed the max PWM value
     constrain(left_motor_speed,0,maxSpeed);
     constrain(right_motor_speed,0,maxSpeed);
+
+    //slip = analogRead(VR);
+    //slip = slip/100;
+    //Serial.println(slip);
     
-    right_motor_speed = right_motor_speed + 5 ; //this line is needed if your motor didn't have same speed
+    right_motor_speed = right_motor_speed + slip ; //this line is needed if your motor didn't have same speed
     
     //open the Serial Monitor to see the speed of each motor
     Serial.print ("right = ");
