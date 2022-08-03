@@ -29,6 +29,9 @@ int motorSpeed;
 int error;
 int position;
 
+int mode = 0;
+boolean buttonPressed = false;
+
     int BaseSpeed = 120;
     float Kp = 0.06; 
     float Kd = 4; 
@@ -61,6 +64,9 @@ void setup() {
 
   melody();
 
+  while (mode < 1) button();
+  delay(100);
+
 }
 
 void loop() {
@@ -83,6 +89,10 @@ void loop() {
   else if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 1 && S5 == 0) position = 1900;
   else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 1 && S5 == 1) position = 1200;
 
+  else if (S1 == 0 && S2 == 1 && S3 == 1 && S4 == 1 && S5 == 0) position = 2000;
+  else if (S1 == 1 && S2 == 1 && S3 == 1 && S4 == 0 && S5 == 0) position = 2100;
+  else if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 1 && S5 == 1) position = 1900;
+
   if (position <= 1500){
     if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 0) position = 0;
     }
@@ -92,11 +102,11 @@ void loop() {
     }
 
   //variable to be adjust
-  //Kp = analogRead(VR)/700;
+  //Kp = analogRead(VR)/100;
   //Serial.print("Kp = ");
   //Serial.println(Kp);
 
-  //Kd = analogRead(VR)/700;
+  //Kd = analogRead(VR)/100;
   //Serial.print("Kd = ");
   //Serial.println(Kd);
 
@@ -146,7 +156,42 @@ void melody(){
     }
 }
 
+void button() {
+  #define NOTE_C5 523
+  #define NOTE_G5 784
+
+  #define BUTTON 2
+  #define BUZZER 8
+
+  pinMode(BUTTON, INPUT_PULLUP);
+  
+    if (digitalRead(BUTTON) == LOW &&
+        buttonPressed == false) {
+      buttonPressed = true;
+      mode++;
+      if (mode == 1) {
+        tone(BUZZER, NOTE_C5, 100);
+        delay(100);
+        tone(BUZZER, NOTE_G5, 100);
+        delay(100);
+        noTone(BUZZER);
+      }
+      else if (mode == 2) {
+        tone(BUZZER, NOTE_G5, 100);
+        delay(100);
+        tone(BUZZER, NOTE_C5, 100);
+        delay(100);
+        noTone(BUZZER);
+      }
+    }
+
+  if (buttonPressed == true) {
+  buttonPressed = false;
+  }
+}
+
 //**********best value**********\\
 // Kp=0.06 Kd=4 Speed=80 Time=7.0s
 // Kp=0.2 Kd=5 Speed=120 Time=5.6s
 // Kp=0.06 Kd=4 Speed=120 Time=5.0s
+// Kp=0.06 Kd=3 Speed=120
