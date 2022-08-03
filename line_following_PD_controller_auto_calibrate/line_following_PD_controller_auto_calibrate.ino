@@ -86,11 +86,16 @@ void loop() {
   S4 = digitalRead(A4);
   S5 = digitalRead(A5);
   
-  if (S1 == 1 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 0) position = 3500;
+  if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 0 && S5 == 0) position = 2000;
+  else if (S1 == 1 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 0) position = 3500;
   else if (S1 == 0 && S2 == 1 && S3 == 0 && S4 == 0 && S5 == 0) position = 2500;
-  else if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 0 && S5 == 0) position = 2000;
   else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 1 && S5 == 0) position = 1500;
   else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 1) position = 500;
+
+  else if (S1 == 1 && S2 == 1 && S3 == 0 && S4 == 0 && S5 == 0) position = 2800;
+  else if (S1 == 0 && S2 == 1 && S3 == 1 && S4 == 0 && S5 == 0) position = 2100;
+  else if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 1 && S5 == 0) position = 1900;
+  else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 1 && S5 == 1) position = 1200;
 
   if (position <= 1500){
     if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 0) position = 0;
