@@ -28,4 +28,8 @@ BIN2		= 11
 Bluetooth_RX	= 0 (TX)
 Bluetooth_TX	= 1 (RX)
 
-//********************\\
+
+//***Pin Not In Use***\\
+	6 (PWM)
+	7
+	9 (PWM)
