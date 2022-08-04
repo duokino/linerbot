@@ -1,0 +1,31 @@
+//*******PINOUT*******\\
+
+Trimmer Pot	= A0
+
+Analog Input	= A1
+		= A2
+		= A3
+		= A4
+		= A5
+
+CAL		= 13
+
+EDGE_L		= A6
+EDGE_R		= A7
+
+BUZZER		= 8
+
+PushButton	= 2
+
+PWMA		= 3
+AIN1		= 5
+AIN2		= 4
+
+PWMB		= 10
+BIN1		= 12
+BIN2		= 11
+
+Bluetooth_RX	= 0 (TX)
+Bluetooth_TX	= 1 (RX)
+
+//********************\\
