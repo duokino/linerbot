@@ -5,13 +5,7 @@
  by Duokino
  */
 
-//sensor
 #define VR A0     //Potentiometer
-int S1 = 0;
-int S2 = 0;
-int S3 = 0;
-int S4 = 0;
-int S5 = 0;
 
 //Pin declaration for TB6612FNG
 
@@ -27,10 +21,10 @@ int S5 = 0;
 
 int motorSpeed;
 int error;
-int position;
 
 int mode = 0;
-boolean buttonPressed = false;
+
+//*****variable that are about to change*****\\
 
     int BaseSpeed = 120;
     float Kp = 0.06; 
@@ -42,6 +36,7 @@ boolean buttonPressed = false;
     int MotorB_Speed = 0; 
     int offset = 2000;
 
+//*******************************************\\
 
 void setup() {
   
@@ -71,36 +66,6 @@ void setup() {
 
 void loop() {
 
-  //read sensor
-  S1 = digitalRead(A1);
-  S2 = digitalRead(A2);
-  S3 = digitalRead(A3);
-  S4 = digitalRead(A4);
-  S5 = digitalRead(A5);
-  
-  if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 0 && S5 == 0) position = 2000;
-  else if (S1 == 1 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 0) position = 3500;
-  else if (S1 == 0 && S2 == 1 && S3 == 0 && S4 == 0 && S5 == 0) position = 2500;
-  else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 1 && S5 == 0) position = 1500;
-  else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 1) position = 500;
-
-  else if (S1 == 1 && S2 == 1 && S3 == 0 && S4 == 0 && S5 == 0) position = 2800;
-  else if (S1 == 0 && S2 == 1 && S3 == 1 && S4 == 0 && S5 == 0) position = 2100;
-  else if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 1 && S5 == 0) position = 1900;
-  else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 1 && S5 == 1) position = 1200;
-
-  else if (S1 == 0 && S2 == 1 && S3 == 1 && S4 == 1 && S5 == 0) position = 2000;
-  else if (S1 == 1 && S2 == 1 && S3 == 1 && S4 == 0 && S5 == 0) position = 2100;
-  else if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 1 && S5 == 1) position = 1900;
-
-  if (position <= 1500){
-    if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 0) position = 0;
-    }
-
-  else if (position >= 2500){
-    if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 0) position = 4000;
-    }
-
   //variable to be adjust
   //Kp = analogRead(VR)/100;
   //Serial.print("Kp = ");
@@ -112,7 +77,7 @@ void loop() {
 
   //PID calculation  
 
-  error = position - offset;
+  error = position(offset);
       
   motorSpeed = Kp * error + Kd * (error - lastError) + Ki * integral; 
   lastError = error;
@@ -132,6 +97,53 @@ void loop() {
   digitalWrite(BIN1, LOW); 
   analogWrite(PWMB, MotorB_Speed);
 
+}
+
+int position(int offset){
+
+  //sensor
+  int S1 = 0;
+  int S2 = 0;
+  int S3 = 0;
+  int S4 = 0;
+  int S5 = 0;
+
+  int sensorValue;
+
+  //read sensor
+  S1 = digitalRead(A1);
+  S2 = digitalRead(A2);
+  S3 = digitalRead(A3);
+  S4 = digitalRead(A4);
+  S5 = digitalRead(A5);
+  
+  if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 0 && S5 == 0) sensorValue = 2000;
+  else if (S1 == 1 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 0) sensorValue = 3500;
+  else if (S1 == 0 && S2 == 1 && S3 == 0 && S4 == 0 && S5 == 0) sensorValue = 2500;
+  else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 1 && S5 == 0) sensorValue = 1500;
+  else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 1) sensorValue = 500;
+
+  else if (S1 == 1 && S2 == 1 && S3 == 0 && S4 == 0 && S5 == 0) sensorValue = 2800;
+  else if (S1 == 0 && S2 == 1 && S3 == 1 && S4 == 0 && S5 == 0) sensorValue = 2100;
+  else if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 1 && S5 == 0) sensorValue = 1900;
+  else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 1 && S5 == 1) sensorValue = 1200;
+
+  else if (S1 == 0 && S2 == 1 && S3 == 1 && S4 == 1 && S5 == 0) sensorValue = 2000;
+  else if (S1 == 1 && S2 == 1 && S3 == 1 && S4 == 0 && S5 == 0) sensorValue = 2100;
+  else if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 1 && S5 == 1) sensorValue = 1900;
+
+  if (sensorValue <= 1500){
+    if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 0) sensorValue = 0;
+    }
+
+  else if (sensorValue >= 2500){
+    if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 0) sensorValue = 4000;
+    }
+
+  int positionValue = sensorValue - offset;
+
+  return positionValue;
+  
 }
 
 void melody(){
@@ -162,6 +174,8 @@ void button() {
 
   #define BUTTON 2
   #define BUZZER 8
+
+  boolean buttonPressed = false;
 
   pinMode(BUTTON, INPUT_PULLUP);
   
