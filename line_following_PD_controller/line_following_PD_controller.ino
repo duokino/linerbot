@@ -26,9 +26,9 @@ int mode = 0;
 
 //*****variable that are about to change*****\\
 
-    int BaseSpeed = 120;
-    float Kp = 0.06; 
-    float Kd = 4; 
+    int BaseSpeed = 180;
+    float Kp = 0.08; 
+    float Kd = 5; 
     float Ki = 0.000; 
     int integral = 0;
     int lastError = 0; 
@@ -67,11 +67,13 @@ void setup() {
 void loop() {
 
   //variable to be adjust
-  //Kp = analogRead(VR)/100;
+  //Kp = analogRead(VR);
+  //Kp = Kp/700;
   //Serial.print("Kp = ");
   //Serial.println(Kp);
 
-  //Kd = analogRead(VR)/100;
+  //Kd = analogRead(VR);
+  //Kd = Kd/50
   //Serial.print("Kd = ");
   //Serial.println(Kd);
 
@@ -123,14 +125,14 @@ int position(int offset){
   else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 1 && S5 == 0) sensorValue = 1500;
   else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 1) sensorValue = 500;
 
-  else if (S1 == 1 && S2 == 1 && S3 == 0 && S4 == 0 && S5 == 0) sensorValue = 2800;
-  else if (S1 == 0 && S2 == 1 && S3 == 1 && S4 == 0 && S5 == 0) sensorValue = 2100;
-  else if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 1 && S5 == 0) sensorValue = 1900;
-  else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 1 && S5 == 1) sensorValue = 1200;
+  else if (S1 == 1 && S2 == 1 && S3 == 0 && S4 == 0 && S5 == 0) sensorValue = 3000;
+  else if (S1 == 0 && S2 == 1 && S3 == 1 && S4 == 0 && S5 == 0) sensorValue = 2300;
+  else if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 1 && S5 == 0) sensorValue = 1700;
+  else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 1 && S5 == 1) sensorValue = 1000;
 
   else if (S1 == 0 && S2 == 1 && S3 == 1 && S4 == 1 && S5 == 0) sensorValue = 2000;
-  else if (S1 == 1 && S2 == 1 && S3 == 1 && S4 == 0 && S5 == 0) sensorValue = 2100;
-  else if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 1 && S5 == 1) sensorValue = 1900;
+  else if (S1 == 1 && S2 == 1 && S3 == 1 && S4 == 0 && S5 == 0) sensorValue = 3300;
+  else if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 1 && S5 == 1) sensorValue = 700;
 
   if (sensorValue <= 1500){
     if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 0) sensorValue = 0;
