@@ -1,12 +1,3 @@
-/*
- This is for Line Follower
- using PID Controller for LinerBot
- Maker Line for cytron for line sensor
- by Duokino
- */
-
-#define VR A0     //Potentiometer
-
 //Pin declaration for TB6612FNG
 
 //Motor Right
@@ -19,16 +10,26 @@
 #define AIN1 5 //Direction
 #define AIN2 4 //Direction
 
+  //sensor
+  int VR = A0;
+  
+  int S1 = 0;
+  int S2 = 0;
+  int S3 = 0;
+  int S4 = 0;
+  int S5 = 0;
+
+  int sensorValue;
+  int position;
+
 int motorSpeed;
 int error;
 
 int mode = 0;
 
-//*****variable that are about to change*****\\
-
-    int BaseSpeed = 180;
+    int BaseSpeed = 138;
     float Kp = 0.08; 
-    float Kd = 5; 
+    float Kd = 4.6; 
     float Ki = 0.000; 
     int integral = 0;
     int lastError = 0; 
@@ -36,11 +37,10 @@ int mode = 0;
     int MotorB_Speed = 0; 
     int offset = 2000;
 
-//*******************************************\\
-
 void setup() {
-  
+
   pinMode (VR, INPUT);
+  
   pinMode (A1, INPUT);
   pinMode (A2, INPUT);
   pinMode (A3, INPUT);
@@ -60,11 +60,44 @@ void setup() {
   melody();
 
   while (mode < 1) button();
+  
   delay(100);
 
 }
 
 void loop() {
+
+  //read sensor
+  S1 = digitalRead(A1);
+  S2 = digitalRead(A2);
+  S3 = digitalRead(A3);
+  S4 = digitalRead(A4);
+  S5 = digitalRead(A5);
+  
+  if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 0 && S5 == 0) sensorValue = 2000;
+  else if (S1 == 1 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 0) sensorValue = 3500;
+  else if (S1 == 0 && S2 == 1 && S3 == 0 && S4 == 0 && S5 == 0) sensorValue = 2500;
+  else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 1 && S5 == 0) sensorValue = 1500;
+  else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 1) sensorValue = 500;
+
+  else if (S1 == 1 && S2 == 1 && S3 == 0 && S4 == 0 && S5 == 0) sensorValue = 2600;
+  else if (S1 == 0 && S2 == 1 && S3 == 1 && S4 == 0 && S5 == 0) sensorValue = 2050;
+  else if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 1 && S5 == 0) sensorValue = 1950;
+  else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 1 && S5 == 1) sensorValue = 1400;
+
+  else if (S1 == 0 && S2 == 1 && S3 == 1 && S4 == 1 && S5 == 0) sensorValue = 2000;
+  else if (S1 == 1 && S2 == 1 && S3 == 1 && S4 == 0 && S5 == 0) sensorValue = 2500;
+  else if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 1 && S5 == 1) sensorValue = 1500;
+
+  if (sensorValue <= 1500){
+    if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 0) sensorValue = 0;
+    }
+
+  else if (sensorValue >= 2500){
+    if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 0) sensorValue = 4000;
+    }
+
+  position = sensorValue - offset;
 
   //variable to be adjust
   //Kp = analogRead(VR);
@@ -79,7 +112,7 @@ void loop() {
 
   //PID calculation  
 
-  error = position(offset);
+  error = position;
       
   motorSpeed = Kp * error + Kd * (error - lastError) + Ki * integral; 
   lastError = error;
@@ -98,54 +131,14 @@ void loop() {
   digitalWrite(BIN2, HIGH); 
   digitalWrite(BIN1, LOW); 
   analogWrite(PWMB, MotorB_Speed);
-
-}
-
-int position(int offset){
-
-  //sensor
-  int S1 = 0;
-  int S2 = 0;
-  int S3 = 0;
-  int S4 = 0;
-  int S5 = 0;
-
-  int sensorValue;
-
-  //read sensor
-  S1 = digitalRead(A1);
-  S2 = digitalRead(A2);
-  S3 = digitalRead(A3);
-  S4 = digitalRead(A4);
-  S5 = digitalRead(A5);
-  
-  if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 0 && S5 == 0) sensorValue = 2000;
-  else if (S1 == 1 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 0) sensorValue = 3500;
-  else if (S1 == 0 && S2 == 1 && S3 == 0 && S4 == 0 && S5 == 0) sensorValue = 2500;
-  else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 1 && S5 == 0) sensorValue = 1500;
-  else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 1) sensorValue = 500;
-
-  else if (S1 == 1 && S2 == 1 && S3 == 0 && S4 == 0 && S5 == 0) sensorValue = 3000;
-  else if (S1 == 0 && S2 == 1 && S3 == 1 && S4 == 0 && S5 == 0) sensorValue = 2300;
-  else if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 1 && S5 == 0) sensorValue = 1700;
-  else if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 1 && S5 == 1) sensorValue = 1000;
-
-  else if (S1 == 0 && S2 == 1 && S3 == 1 && S4 == 1 && S5 == 0) sensorValue = 2000;
-  else if (S1 == 1 && S2 == 1 && S3 == 1 && S4 == 0 && S5 == 0) sensorValue = 3300;
-  else if (S1 == 0 && S2 == 0 && S3 == 1 && S4 == 1 && S5 == 1) sensorValue = 700;
-
-  if (sensorValue <= 1500){
-    if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 0) sensorValue = 0;
-    }
-
-  else if (sensorValue >= 2500){
-    if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 0 && S5 == 0) sensorValue = 4000;
-    }
-
-  int positionValue = sensorValue - offset;
-
-  return positionValue;
-  
+/*
+  Serial.print("error = ");
+  Serial.print(error);
+  Serial.print("     Left = ");
+  Serial.print(MotorA_Speed);
+  Serial.print("     Right = ");
+  Serial.println(MotorB_Speed);
+*/
 }
 
 void melody(){
@@ -206,8 +199,5 @@ void button() {
   }
 }
 
-//**********best value**********\\
-// Kp=0.06 Kd=4 Speed=80 Time=7.0s
-// Kp=0.2 Kd=5 Speed=120 Time=5.6s
-// Kp=0.06 Kd=4 Speed=120 Time=5.0s
-// Kp=0.06 Kd=3 Speed=120
+//*************best value*************\\
+//  Kp=0.08 Kd=4.6 Speed=138 Time=4.54s
