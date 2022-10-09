@@ -27,9 +27,9 @@ int error;
 
 int mode = 0;
 
-    int BaseSpeed = 138;
+    int BaseSpeed = 160;
     float Kp = 0.08; 
-    float Kd = 4.6; 
+    float Kd = 4.8; 
     float Ki = 0.000; 
     int integral = 0;
     int lastError = 0; 
@@ -201,3 +201,5 @@ void button() {
 
 //*************best value*************\\
 //  Kp=0.08 Kd=4.6 Speed=138 Time=4.54s
+//  Kp=0.08 Kd=4.8 Speed=145 Time=4.44s
+//  Kp=0.08 Kd=4.8 Speed=160 Time=      LinerBot Purple
