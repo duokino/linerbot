@@ -1,3 +1,11 @@
+/*
+ This is for Line Follower
+ using PID Controller for LinerBot
+ with Auto Calibrate Sensor
+ Maker Line from cytron for line sensor
+ by Duokino
+ */
+ 
 //Pin declaration for TB6612FNG
 
 //Motor Right
@@ -202,4 +210,10 @@ void button() {
 //*************best value*************\\
 //  Kp=0.08 Kd=4.6 Speed=138 Time=4.54s
 //  Kp=0.08 Kd=4.8 Speed=145 Time=4.44s
-//  Kp=0.08 Kd=4.8 Speed=160 Time=      LinerBot Purple
+//  Kp=0.08 Kd=4.8 Speed=160 Time=5.24s LinerBot Purple
+//  Kp=0.08 Kd=4.8 Speed=160 Time=4.48  Slick
+//  Kp=0.06 Kd=4.8 Speed=150 Time=4.56  Slick
+//  Kp=0.06 Kd=4.8 Speed=160 Time=4.52  Slick
+//  Kp=0.08 Kd=4.8 Speed=180 Time=3.55  Slick
+//  Kp=0.09 Kd=4.8 Speed=210 Time=3.49  Slick
+//  Kp=0.08 Kd=4.8 Speed=200 Time=3.22  Slick
